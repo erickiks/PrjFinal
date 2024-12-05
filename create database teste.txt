@@ -1,0 +1,54 @@
+create database teste
+use teste
+create table cad_user(
+
+use portaleduca;
+create table professor (id_professor int auto_increment primary key);
+
+insert into professor values (1,"Professor Emerson","emerson@senai.sp","12345")
+
+
+alter table professor 
+add column senhap varchar(5);
+alter table aluno
+drop column senhap
+
+create table professor ( id_prof int )
+
+select *from activity
+
+
+
+,
+DELETE FROM aluno
+WHERE id_aluno = 5;
+
+ drop table professor
+CREATE TABLE professor (
+    id_prof BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nomep VARCHAR(255) NOT NULL,
+    emailp VARCHAR(255) NOT NULL,
+    senhap VARCHAR(255) NOT NULL
+);
+NSERT INTO professor (nome, email, senha)
+VALUES ('João Silva', 'joao.silva@email.com', 'senha123');
+
+INSERT INTO professor (nome, email, senha)
+VALUES ('Maria Oliveira', 'maria.oliveira@email.com', 'senha456');
+
+CREATE TABLE IF NOT EXISTS `link` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,    -- O campo id será gerado automaticamente
+    `link` VARCHAR(255) NOT NULL,            -- O link, com comprimento máximo de 255 caracteres
+    `description` TEXT,                     -- A descrição pode ter tamanho variável
+    `imagePath` VARCHAR(255),               -- O caminho para a imagem
+    `filePath` VARCHAR(255),                -- O caminho para o arquivo
+    PRIMARY KEY (`id`)                      -- Define o id como chave primária
+);
+
+CREATE TABLE activity (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,  -- Campo para o ID da atividade, auto-incremento
+    image BLOB,                            -- Campo para armazenar a imagem (em formato binário)
+    file BLOB,                             -- Campo para armazenar o arquivo (em formato binário)
+    link VARCHAR(255),                     -- Campo para armazenar o link (max 255 caracteres)
+    description TEXT                       -- Campo para armazenar a descrição (pode ter vários caracteres)
+);

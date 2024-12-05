@@ -1,0 +1,238 @@
+// Html PRINCIPAL  
+<div class="form-container">
+            <h1>Cadastrar Atividade</h1>
+
+            <form id="activityForm">
+                <div>
+                    <label for="title">Título da Atividade:</label>
+                    <input type="text" id="title" name="title" required />
+                </div>
+
+                <div>
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div>
+                    <label for="link">Link de Auxílio:</label>
+                    <input type="url" id="link" name="link" placeholder="https://exemplo.com" />
+                </div>
+
+                <div>
+                    <label for="image">Imagem (opcional):</label>
+                    <input type="file" id="image" name="image" accept="image/*" />
+                </div>
+
+                <div>
+                    <label for="file">Arquivo (opcional):</label>
+                    <input type="file" id="file" name="file" accept=".ppt,.pptx,.pdf" />
+                </div>
+
+                <button type="submit">Cadastrar Atividade</button>
+            </form>
+        </div>
+
+// Html antigo
+<div class="container-licao">
+      <div class="materia">
+        <label class="picture" for="picture_input" tabindex="0">
+          <div class="titulo"><h1>Título da lição*</h1></div>
+          <span class="picture_image">Escolha uma imagem</span>
+          <img id="selected_image" class="hidden" alt="Imagem escolhida" />
+        </label>
+        <input type="file" accept="image/*" id="picture_input" />
+        <div id="image_preview" class="image_preview"></div>
+      </div>
+      
+        <div class="arquivos">
+          <div class="link_area">
+            <label for="link_input">Insira um link para auxílio da atividade/conteúdo</label>
+            <input type="url" id="link_input" placeholder="https://exemplo.com" />
+          </div>
+      
+          <div class="file_area">
+            <label for="file_input" class="file_label">Escolha um arquivo (PowerPoint, etc.):</label>
+            <input type="file" accept=".ppt,.pptx" id="file_input" />
+            <div id="file_preview" class="file_preview"></div>
+            <button id="download_button" class="download_button">
+              Baixar arquivo
+            </button>
+          </div> 
+      
+          <div class="descricao">
+            <h1>Descrição</h1>
+            <textarea id="userText" rows="4" cols="50"></textarea>
+            <button class="save-text" onclick="saveText()">Salvar</button>
+          </div>
+        </div>
+     </div>
+
+//CSS GERAL
+
+
+/* Section - Matérias */
+/* Caixa de imagem */
+#picture_input {
+  display: none;
+}
+
+.picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  text-align: center;
+}
+
+#picture_input, #file_input, #link_input, #userText {
+  width: 100%;
+  max-width: 100%;
+}
+
+.titulo{
+  position: absolute;
+  width: 101%;
+  height: 25px;
+  top: -25px;
+  background-color: #23232e;
+}
+.titulo h1{
+  position: absolute;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 4px;
+  padding-left: 4px;
+}
+
+.hidden {
+  display: none;
+}
+
+.picture img {
+  max-width: 100%; /* Limita a largura da imagem ao tamanho do label */
+  max-height: 100%; /* Limita a altura da imagem ao tamanho do label */
+  object-fit: contain; /* Mantém a proporção da imagem */
+}
+
+.picture:hover {
+  color: #777;
+  background: #ccc;
+}
+
+.picture:active {
+  border-color: blue;
+  color: turquoise;
+  background: #eee;
+}
+
+.picture:focus {
+  color: #777;
+  background: #ccc;
+  box-shadow: 0 0 10px blue;
+}
+
+/* Estilos básicos para a estrutura da lição */
+.container-licao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.materia, .arquivos {
+  flex: 1;
+  min-width: 300px; /* Garante um tamanho mínimo para cada coluna */
+  box-sizing: border-box;
+}
+
+.picture_image {
+  height: 39vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Descrição */
+textarea {
+  outline: rgb(0, 0, 0);
+  width: 100%;
+  max-width: 600px; /* Igual ao link_area e file_area */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.descricao {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  max-width: 600px; /* Igual ao link_area e file_area */
+  margin-top: 20px; /* Adicionando espaçamento semelhante */
+}
+
+/* Botão Descrição */
+.download_button, .save-text {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: rgb(0, 79, 128);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.save-text:hover, .download_button:hover {
+  background-color: rgb(34, 63, 131);
+}
+
+/* Area para descarregar arquivos e links */
+.link_area,
+.file_area {
+  margin-top: 20px; /* Espaço entre as áreas */
+}
+
+.file_preview {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  padding: 10px; 
+  border-radius: 4px;
+}
+
+.link_area {
+  display: flex;
+  flex-direction: column;
+}
+
+.link_area input {
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px; /* Limite de largura para o campo de link */
+}
+
+
+input[type="file"] {
+  color: transparent; /* Oculta o nome do arquivo */
+}
+
+.hidden {
+  display: none;
+}
+
+.picture img {
+  width: 100%;
+  height: auto; 
+} Tive que atualizar meu html para ele funcionar com o back-end, porem agora esta sem o css, conecte o html atual com o css geral, e se precisar use o html antigo como referencia que tinha o css porem nao estava integrado com o back-end
