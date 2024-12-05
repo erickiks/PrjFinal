@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="ano_turma.css">
+  <script src="ano_turma.js" defer></script>
+  <title>Ano e Turma</title>
+</head>
+
+<body>
+
+  <div class="main-login">
+    <div class="left-login">
+      <h1>Escolha sua turma <br> e sua série</h1>
+      <img src="Img/landing-page.png" class="left-login-image" alt="">
+    </div>
+    <div class="right-login">
+      <div class="card-login">
+        <h1>Turma</h1>
+        <div class="textfield">
+          <select name="Ano" id="ano">
+            <label for="seletorPagina">Escolha</label>
+            <option value="3">3°</option>
+          </select>
+        </div>
+        <div class="textfield">
+          <select id="seletorPagina">
+            <option value="" disabled selected>Escolha sua Série</option>
+            <option value="workspace_aluno.html">Aluno</option>
+            <option value="prof1.html">Professor</option>
+          </select>
+        </div>
+        <button onclick="redirecionarPagina()" class="btn-login">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

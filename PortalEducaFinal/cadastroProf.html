@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Professores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .form-container, .professores-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 8px;
+            font-size: 14px;
+            width: 100%;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .professores-container ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .professores-container li {
+            background-color: #fafafa;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .professores-container button {
+            margin-left: 10px;
+        }
+
+        #editForm {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        const baseUrl = 'http://localhost:8080/professores'; // URL do backend
+
+        // Função para carregar todos os professores
+        function loadProfessores() {
+            fetch(baseUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('professoresList');
+                    list.innerHTML = ''; // Limpar a lista
+                    data.forEach(professor => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `ID: ${professor.id_prof}, Nome: ${professor.nome}, Email: ${professor.email}
+                                              <button onclick="deleteProfessor(${professor.id_prof})">Deletar</button>
+                                              <button onclick="showEditForm(${professor.id_prof}, '${professor.nome}', '${professor.email}')">Editar</button>`;
+                        list.appendChild(listItem);
+                    });
+                });
+        }
+
+        // Função para criar um novo professor
+        function createProfessor() {
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            const professor = {
+                nome: nome,
+                email: email,
+                senha: senha
+            };
+
+            fetch(baseUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(professor)
+            })
+            .then(response => response.json())
+            .then(() => {
+                loadProfessores();
+                document.getElementById('nome').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('senha').value = '';
+            });
+        }
+
+        // Função para deletar um professor
+        function deleteProfessor(id) {
+            fetch(`${baseUrl}/${id}`, {
+                method: 'DELETE'
+            })
+            .then(() => {
+                loadProfessores();
+            });
+        }
+
+        // Função para editar um professor
+        function updateProfessor() {
+            const id = document.getElementById('editId').value;
+            const nome = document.getElementById('editNome').value;
+            const email = document.getElementById('editEmail').value;
+            const senha = document.getElementById('editSenha').value;
+
+            const professor = {
+                nome: nome,
+                email: email,
+                senha: senha
+            };
+
+            fetch(`${baseUrl}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(professor)
+            })
+            .then(() => {
+                loadProfessores();
+                hideEditForm();
+            });
+        }
+
+        // Função para exibir o formulário de edição
+        function showEditForm(id, nome, email) {
+            document.getElementById('editForm').style.display = 'block';
+            document.getElementById('editId').value = id;
+            document.getElementById('editNome').value = nome;
+            document.getElementById('editEmail').value = email;
+        }
+
+        // Função para ocultar o formulário de edição
+        function hideEditForm() {
+            document.getElementById('editForm').style.display = 'none';
+        }
+
+        // Carregar a lista de professores ao carregar a página
+        window.onload = loadProfessores;
+    </script>
+</head>
+<body>
+    <h1>Cadastro de Professores</h1>
+
+    <div class="form-container">
+        <h2>Criar Professor</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" required>
+
+        <button onclick="createProfessor()">Criar</button>
+    </div>
+
+    <div class="professores-container">
+        <h2>Lista de Professores</h2>
+        <ul id="professoresList"></ul>
+    </div>
+
+    <div id="editForm">
+        <h2>Editar Professor</h2>
+        <input type="hidden" id="editId">
+        <label for="editNome">Nome:</label>
+        <input type="text" id="editNome">
+
+        <label for="editEmail">Email:</label>
+        <input type="email" id="editEmail">
+
+        <label for="editSenha">Senha:</label>
+        <input type="password" id="editSenha">
+
+        <button onclick="updateProfessor()">Atualizar</button>
+        <button onclick="hideEditForm()">Cancelar</button>
+    </div>
+</body>
+</html>

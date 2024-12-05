@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.main-login {
+    width: 100vw;
+    height: 100vh;
+    background: #201b2c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-login-image {
+    width: 35vw;
+}
+
+.left-login {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.left-login>h1 {
+    font-size: 3vw;
+    color: #77adff;
+    text-align: center;
+}
+
+.right-login {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    width: 70%;
+    max-width: 650px; /* Define uma largura máxima para responsividade */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 65px 0px;
+    background: #2f2841;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+}
+
+.card-login > h1 {
+    position: relative;
+    top: -20px;
+    color: #4f96ff;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+}
+
+.textfield {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+/* Estilo para o select, label e botão */
+.textfield > select,
+.textfield > label,
+.btn-login {
+    width: 70%;         /* Preenche a largura disponível */
+    max-width: 100%;     /* Limita ao máximo da largura do contêiner pai */
+    border: none;
+    border-radius: 10px;
+    padding: 18px 0px;
+    background: #514869;
+    color: #f0ffffde;
+    font-size: 12pt;
+    box-shadow: 0px 10px 40px #00000056;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Estilos específicos para o botão */
+.btn-login {
+    background: #4f96ff;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 20px; /* Espaçamento entre o botão e outros elementos */
+    box-shadow: -2px 2px 0px 1px #fff;
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+    .card-login {
+        width: 90%; /* Aumenta a largura em telas menores */
+        padding: 20px;
+    }
+    .textfield > select,
+    .textfield > label,
+    .btn-login {
+        font-size: 10pt; /* Ajusta o tamanho da fonte para caber em telas pequenas */
+        padding: 10px;
+    }
+}
+
+
+@media only screen and (max-width: 950px) {
+    .card-login {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-login {
+        flex-direction: column;
+    }
+
+    .left-login h1 {
+        display: none;
+    }
+
+    .left-login {
+        width: 100%;
+        height: auto;
+    }
+
+    .right-login {
+        width: 100%;
+        height: auto;
+    }
+
+    .left-login-image {
+        width: 50vw;
+    }
+
+    .card-login {
+        width: 90%;
+    }
+}

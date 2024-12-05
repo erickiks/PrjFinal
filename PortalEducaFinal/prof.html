@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Professor</title>
+    <link rel="stylesheet" href="login.css" />
+    <script src="prof.js" defer></script>
+    <script src="https://kit.fontawesome.com/853b222c5b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <img class="perfil-icon" src="Img/user.png" alt="Ícone de perfil" />
+        <header>
+            <h1>Login - Professor</h1>
+        </header>
+
+        <main>
+            <div id="loginForm">
+                <h2>Entre com a credencial para fazer o cadastro</h2>
+                <h4>Professor</h4>
+
+                <!-- Formulário de login -->
+                <form id="LoginForm">
+                    <div class="user">
+                        <div class="icon">
+                            <img src="Img/usuario-login.png" alt="Email ícone" />
+                        </div>
+                        <input type="email" id="loginEmail" name="loginEmail" placeholder="Digite seu email" required />
+                    </div>
+
+                    <div class="user">
+                        <div class="icon-2">
+                            <img src="Img/senha-login.png" alt="Cadeado ícone" />
+                        </div>
+                        <input type="password" id="loginSenha" name="loginSenha" placeholder="Digite sua senha" required />
+                    </div>
+
+                    <div class="center">
+                        <button class="button" type="submit">Entrar</button>
+                        <div id="loginError" style="color:red; display:none;"></div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    </script>
+</body>
+</html>

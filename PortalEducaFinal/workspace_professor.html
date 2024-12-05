@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Atividade</title>
+    <link rel="stylesheet" href="workspace.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Portal Educa</a>
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ano_turma.html">Workspace</a></li>
+            </ul>
+        </nav>
+    </header>
+
+        <main>
+            <div class="container">
+              <div class="main-left">
+                <div class="textfield">
+      
+                  <h1>
+                    Espaço de <br />
+                    <span class="destaque">Atividades</span>
+                  </h1>
+                  <h5>Time To Get Your <span class="destaque">Work</span> Done</h5>
+                </div>
+              </div>
+      
+              <div class="main-right">
+                <img id="materialImage"  src="Img/Learning-cuate.png" alt="Imagem de Atividades" /> 
+                 </div>
+              </div>
+            </div>
+      
+            <br />
+            <br />
+          </main>
+
+          <!-- <div class="form-container">
+            <h1>Cadastrar Atividade</h1>
+        
+            <form id="activityForm">
+                <div class="form-group">
+                    <label for="title">Título da Atividade:</label>
+                    <input type="text" id="title" name="title" required />
+                </div>
+        
+                <div class="form-group">
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+        
+                <div class="form-group">
+                    <label for="link">Link de Auxílio:</label>
+                    <input type="url" id="link" name="link" placeholder="https://exemplo.com" />
+                </div>
+        
+                <div class="form-group">
+                    <label for="image">Imagem (opcional):</label>
+                    <input type="file" id="image" name="image" accept="image/*" />
+                    <div class="image-preview" id="imagePreview">
+                        <span>Pré-visualização da imagem</span>
+                        <img src="" alt="Pré-visualização" class="hidden" />
+                    </div>
+                </div>
+        
+                <div class="form-group">
+                    <label for="file">Arquivo (opcional):</label>
+                    <input type="file" id="file" name="file" accept=".ppt,.pptx,.pdf" />
+                </div>
+        
+                <button type="submit" class="btn-submit">Cadastrar Atividade</button>
+            </form>
+        </div> -->
+
+        <div class="form-container">
+            <h1>Cadastrar Atividade</h1>
+
+            <form id="activityForm">
+                <div>
+                    <label for="title">Título da Atividade:</label>
+                    <input type="text" id="title" name="title" required />
+                </div>
+
+                <div>
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div>
+                    <label for="link">Link de Auxílio:</label>
+                    <input type="url" id="link" name="link" placeholder="https://exemplo.com" />
+                </div>
+
+                <div>
+                    <label for="image">Imagem (opcional):</label>
+                    <input type="file" id="image" name="image" accept="image/*" />
+                </div>
+
+                <div>
+                    <label for="file">Arquivo (opcional):</label>
+                    <input type="file" id="file" name="file" accept=".ppt,.pptx,.pdf" />
+                </div>
+
+                <button type="submit">Cadastrar Atividade</button>
+            </form>
+        </div>
+
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.getElementById('activityForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Criando o FormData para enviar os arquivos e os dados
+    const formData = new FormData();
+    formData.append('title', document.getElementById('title').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('link', document.getElementById('link').value);
+    formData.append('image', document.getElementById('image').files[0]);  // Envia a imagem
+    formData.append('file', document.getElementById('file').files[0]);
+
+    // Enviar os dados para o back-end via POST
+    fetch('http://localhost:8080/activities/create', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Atividade cadastrada com sucesso:', data);
+        alert('Atividade cadastrada com sucesso!');
+    })
+    .catch(error => {
+        console.error('Erro ao cadastrar atividade:', error);
+        alert('Ocorreu um erro ao cadastrar a atividade.');
+    });
+});
+
+
+    </script>
+
+    <script>
+        const imageInput = document.getElementById('image');
+        const imagePreviewContainer = document.getElementById('imagePreview');
+        const imagePreview = imagePreviewContainer.querySelector('img');
+        const imagePreviewText = imagePreviewContainer.querySelector('span');
+
+        imageInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                imagePreviewText.style.display = 'none';
+                imagePreview.classList.remove('hidden');
+
+                reader.addEventListener('load', function () {
+                    imagePreview.setAttribute('src', this.result);
+                });
+
+                reader.readAsDataURL(file);
+            } else {
+                imagePreviewText.style.display = 'block';
+                imagePreview.classList.add('hidden');
+                imagePreview.setAttribute('src', '');
+            }
+        });
+    </script>
+</body>
+</html>

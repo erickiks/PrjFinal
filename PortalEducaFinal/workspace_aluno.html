@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visualizar Atividade</title>
+    <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">Portal Educa</a>
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ano_turma.html">Workspace</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="main-left">
+                <div class="textfield">
+                    <h1>
+                        Detalhes da <br />
+                        <span class="destaque">Atividade</span>
+                    </h1>
+                    <h5>Veja os detalhes da atividade cadastrada</h5>
+                </div>
+            </div>
+
+            <div class="main-right">
+                <img id="materialImage" src="Img/Learning-cuate.png" alt="Imagem de Atividades" />
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <!-- Exibição dos dados cadastrados -->
+        <div class="form-container">
+            <h1>Detalhes da Atividade</h1>
+            <div>
+                <label><strong>Título da Atividade:</strong></label>
+                <p id="activityTitle">Carregando...</p>
+            </div>
+
+            <div>
+                <label><strong>Descrição:</strong></label>
+                <p id="activityDescription">Carregando...</p>
+            </div>
+
+            <div>
+                <label><strong>Link de Auxílio:</strong></label>
+                <p id="activityLink"><a href="#">Carregando...</a></p>
+            </div>
+
+            <div>
+                <label><strong>Imagem:</strong></label>
+                <div id="imagePreview">
+                    <span>Sem imagem</span>
+                    <img id="activityImage" src="" alt="Imagem da atividade" class="hidden" />
+                </div>
+            </div>
+
+            <div>
+                <label><strong>Arquivo:</strong></label>
+                <p id="activityFile">Carregando...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Quando a página estiver completamente carregada, executa a requisição
+       // Função executada quando a página é carregada
+window.onload = function () {
+    fetch('http://localhost:8080/activities/latest')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao buscar a atividade mais recente.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Exibir os dados da atividade no front-end
+            document.getElementById('activityTitle').textContent = data.title || 'Sem título';
+            document.getElementById('activityDescription').textContent = data.description || 'Sem descrição';
+            document.getElementById('activityLink').innerHTML = data.link 
+                ? `<a href="${data.link}" target="_blank">${data.link}</a>` 
+                : 'Sem link';
+
+            // Exibir a imagem, caso exista
+            if (data.image) {
+                const activityImage = document.getElementById('materialImage'); // Imagem principal
+                activityImage.src = data.image; // Base64 recebido do back-end
+                activityImage.alt = "Imagem da Atividade";
+                activityImage.classList.remove('hidden'); // Certifica-se de exibir a imagem
+            } else {
+                const activityImage = document.getElementById('materialImage');
+                activityImage.src = ""; // Esconde a imagem se não houver
+                activityImage.alt = "Sem imagem disponível";
+                activityImage.classList.add('hidden'); // Adiciona a classe de ocultação
+            }
+
+            // Exibir o link para o arquivo, caso exista
+            if (data.file) {
+                const activityFile = document.getElementById('activityFile');
+                activityFile.innerHTML = `<a href="http://localhost:8080/files/${data.file}" target="_blank">Clique para baixar o arquivo</a>`;
+            } else {
+                document.getElementById('activityFile').textContent = 'Nenhum arquivo disponível';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar a atividade:', error);
+            alert('Ocorreu um erro ao carregar a atividade.');
+        });
+};
+    </script>
+
+</body>
+</html>
